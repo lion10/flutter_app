@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_firebase/services/auth.dart';
+import 'package:flutter_app_firebase/sheard/constants.dart';
 class Register extends StatefulWidget {
 
   final Function toggleView ; // cuz we need to pass func by contructor
@@ -45,6 +46,7 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               SizedBox(height: 20.0,),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val)=> val.isEmpty? 'Enter an Email Please!' : null,
                 onChanged: (val){
                   setState(() => email =val );
@@ -52,6 +54,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20.0,),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 validator: (val)=> val.length < 6 ? 'Enter an Password Please > 6 charachters !' : null, // i will get back to make this function more secure
                 obscureText: true,
                 onChanged: (val){
