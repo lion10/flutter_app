@@ -5,6 +5,10 @@ import 'package:flutter_app_firebase/models/user.dart';
 import 'package:flutter_app_firebase/services/auth.dart';
 
 class SignIn extends StatefulWidget {
+
+  final Function toggleView ; // cuz we need to pass func by contructor
+  SignIn({this.toggleView});
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -23,6 +27,17 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
         title: Text('Sign in to Brew Crew'),
+        actions: <Widget>[
+          FlatButton.icon(
+              icon: Icon(Icons.person),
+              label: Text('Rigester'),
+               onPressed: (){
+                widget.toggleView(); // i didn't use this.toggleView cuz this for state
+                                    // object so i used widget.toggleView() refers to widget itself
+               },
+          )
+        ],
+
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
