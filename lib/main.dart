@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     // I make stream provider type user cuz value return Stream<User> from AuthService yea
     return StreamProvider<User>.value(
         value: AuthService().user,
+        catchError: (_, __) => null,
         child :MaterialApp(
          home: Wrapper(),
       )

@@ -11,8 +11,13 @@ class Wrapper extends StatelessWidget {
     // I make stream provider type user cuz value return StreamProvider<User> from main yea
 
     final user =Provider.of<User>(context);
-    print(user);
+
+
     // return either home or authenticate widget
-    return  Authenticate();
+    if (user == null){
+      return  Authenticate();
+    }else{
+      return Home();
+    }
   }
 }
