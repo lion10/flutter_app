@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_firebase/models/user.dart';
 import 'package:flutter_app_firebase/services/auth.dart';
 import 'package:flutter_app_firebase/sheard/constants.dart';
+import 'package:flutter_app_firebase/sheard/loading.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -17,7 +18,7 @@ class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
   final _fromKey =GlobalKey<FormState>(); // to identify our form
-
+  bool loading = false ;
   // text field state
   String email = '';
   String password = '';
@@ -26,7 +27,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading? Loading(): Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -72,11 +73,12 @@ class _SignInState extends State<SignIn> {
                 child: Text('Sign in',style: TextStyle(color: Colors.white),),
                 onPressed: () async{
                   if(_fromKey.currentState.validate()){  // validate use property validator in TextFormField
-                    print('valid');
+                   setState(()=> loading = true);
                      dynamic result =  await _auth.signInWithEmailAndPassword(email, password);
                     if(result == null){
                       setState(() {
                         error = 'could not sign in with credentials ...';
+                        loading = false;
                       });
                     }
                   }

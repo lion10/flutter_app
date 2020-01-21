@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_firebase/services/auth.dart';
 import 'package:flutter_app_firebase/sheard/constants.dart';
+import 'package:flutter_app_firebase/sheard/loading.dart';
 class Register extends StatefulWidget {
 
   final Function toggleView ; // cuz we need to pass func by contructor
@@ -14,15 +15,18 @@ class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
   final _fromKey =GlobalKey<FormState>(); // to identify our form
+  bool loading = false ;
 
   // text field state
   String email = '';
   String password = '';
   String error = '';
 
+
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return loading? Loading(): Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -67,10 +71,12 @@ class _RegisterState extends State<Register> {
                 onPressed: () async{
                   // validate our form based on current state
                  if(_fromKey.currentState.validate()){  // validate use property validator in TextFormField
+                   setState(() =>loading = true);
                    dynamic result =  await _auth.registerWithEmailAndPassword(email, password);
                    if(result == null){
                      setState(() {
                        error = 'please register with correct email ...';
+                       loading = false;
                      });
                    }
                  }
