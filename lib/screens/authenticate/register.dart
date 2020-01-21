@@ -53,7 +53,9 @@ class _RegisterState extends State<Register> {
                 decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val)=> val.isEmpty? 'Enter an Email Please!' : null,
                 onChanged: (val){
-                  setState(() => email =val );
+                    if (this.mounted) {
+                      setState(() => email = val);
+                    }
                 },
               ),
               SizedBox(height: 20.0,),
@@ -62,7 +64,7 @@ class _RegisterState extends State<Register> {
                 validator: (val)=> val.length < 6 ? 'Enter an Password Please > 6 charachters !' : null, // i will get back to make this function more secure
                 obscureText: true,
                 onChanged: (val){
-                  setState(() => password =val );
+                          setState(() => password =val );
                 },
               ),
               RaisedButton(
@@ -73,11 +75,11 @@ class _RegisterState extends State<Register> {
                  if(_fromKey.currentState.validate()){  // validate use property validator in TextFormField
                    setState(() =>loading = true);
                    dynamic result =  await _auth.registerWithEmailAndPassword(email, password);
-                   if(result == null){
-                     setState(() {
-                       error = 'please register with correct email ...';
-                       loading = false;
-                     });
+                   if(result == null ){
+                          setState(() {
+                            error = 'please register with correct email ...';
+                            loading = false;
+                          });
                    }
                  }
                 },
