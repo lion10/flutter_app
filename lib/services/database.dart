@@ -17,4 +17,12 @@ class DatabaseServices{
         'strength': strength,
     });
   }
+
+  // use this data in home screen
+  Stream<QuerySnapshot> get brews {
+    return brewCollection.snapshots();
+  }
+
+
+
 }
