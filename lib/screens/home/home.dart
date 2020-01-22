@@ -25,8 +25,6 @@ class Home extends StatelessWidget {
               ) ;
           });
     }
-
-
     return StreamProvider<List<Brew>>.value(
      value: DatabaseServices().brews, // here brews is func return stream yea
      child: Scaffold(
@@ -50,7 +48,15 @@ class Home extends StatelessWidget {
           ),
            ],
         ),
-       body: BrewList(),
+       body: Container(
+         decoration: BoxDecoration(
+           image: DecorationImage(
+             image: AssetImage('assets/coffee_background.jpg'),
+             fit: BoxFit.cover
+           ),
+         ),
+         child: BrewList(),
+       ),
       )
     );
   }
